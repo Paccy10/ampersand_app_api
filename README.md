@@ -48,3 +48,23 @@ git clone https://github.com/Paccy10/olympus-api.git
 ```
 
 - Make a copy of the .env.sample file and rename it to .env and update the variables accordingly
+
+- Apply migrations
+
+```
+flask db upgrade
+```
+
+- Should you make changes to the database models, run migrations as follows
+
+  - Migrate database
+
+  ```
+  flask db migrate
+  ```
+
+  - Upgrade to the new structure
+
+  ```
+  flask db upgrade
+  ```

@@ -3,6 +3,7 @@
 
 # Motocycle
 MOTORCYCLE_CREATED = 'Motorcycle successfully created'
+MOTORCYCLES_FETCHED = 'Motorcycles successfully fetched'
 
 # Error
 KEY_REQUIRED = 'The {} is required'

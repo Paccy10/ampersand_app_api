@@ -68,3 +68,11 @@ flask db upgrade
   ```
   flask db upgrade
   ```
+
+## Running
+
+- Running app
+
+```
+flask run
+```

@@ -1,6 +1,8 @@
 """ Main application module """
 
 from flask import Flask, Blueprint
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 
 from config.env import AppConfig
 from api.utils.helpers.response import Response
@@ -19,6 +21,9 @@ def create_app(config=AppConfig):
 
 
 application = create_app()
+
+db = SQLAlchemy(application)
+Migrate(application, db)
 
 
 @application.errorhandler(404)

@@ -2,28 +2,22 @@
 
 from flask import Flask, Blueprint
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 
-from config.env import AppConfig
+
+from config.server import application
+from config.db import db
 from api.utils.helpers.response import Response
+from api.models.motorcycle import Motorcycle
+import api.views.motorcycle
 
-api_blueprint = Blueprint('api_blueprint', __name__, url_prefix='/api')
-
-
-def create_app(config=AppConfig):
-    """ Create the flask application """
-
-    app = Flask(__name__)
-    app.config.from_object(config)
-    app.register_blueprint(api_blueprint)
-
-    return app
-
-
-application = create_app()
-
-db = SQLAlchemy(application)
 Migrate(application, db)
+
+
+@application.route('/', methods=['GET'])
+def home():
+    """ Home route """
+
+    return Response.success('Welcome to Ampersand API', None, 200)
 
 
 @application.errorhandler(404)

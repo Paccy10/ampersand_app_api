@@ -8,7 +8,8 @@ from ..schemas.motorcycle import MotorcycleSchema
 from ..utils.helpers.response import Response
 from ..utils.helpers.messages import (MOTORCYCLE_CREATED,
                                       KEY_REQUIRED,
-                                      MOTORCYCLE_EXISTS)
+                                      MOTORCYCLE_EXISTS,
+                                      MOTORCYCLES_FETCHED)
 from ..utils.helpers import request_data_strip
 
 
@@ -32,3 +33,16 @@ def create_motocycle():
         'motorcycle': motorcycle_schema.dump(new_motorcycle)
     }
     return Response.success(MOTORCYCLE_CREATED, response_data, 201)
+
+
+@application.route('/motorcycles', methods=['GET'])
+def get_motocycle():
+    """ Endpoint to get the motorcycle """
+
+    motorcycles = Motorcycle.query.all()
+
+    motorcycle_schema = MotorcycleSchema(many=True)
+    response_data = {
+        'motorcycles': motorcycle_schema.dump(motorcycles)
+    }
+    return Response.success(MOTORCYCLES_FETCHED, response_data, 200)

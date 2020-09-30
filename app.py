@@ -9,8 +9,10 @@ from config.db import db
 from api.utils.helpers.response import Response
 from api.models.motorcycle import Motorcycle
 from api.models.driver import Driver
+from api.models.battery import Battery
 import api.views.motorcycle
 import api.views.driver
+import api.views.battery
 
 Migrate(application, db)
 

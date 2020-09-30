@@ -8,7 +8,9 @@ from config.server import application
 from config.db import db
 from api.utils.helpers.response import Response
 from api.models.motorcycle import Motorcycle
+from api.models.driver import Driver
 import api.views.motorcycle
+import api.views.driver
 
 Migrate(application, db)
 

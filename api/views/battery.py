@@ -8,7 +8,8 @@ from ..schemas.battery import BatterySchema
 from ..utils.helpers.response import Response
 from ..utils.helpers.messages import (KEY_REQUIRED,
                                       BATTERY_CREATED,
-                                      BATTERY_EXISTS)
+                                      BATTERY_EXISTS,
+                                      BATTERIES_FETCHED)
 from ..utils.helpers import request_data_strip
 
 
@@ -35,3 +36,16 @@ def create_battery():
         'battery': battery_schema.dump(new_battery)
     }
     return Response.success(BATTERY_CREATED, response_data, 201)
+
+
+@application.route('/batteries', methods=['GET'])
+def get_batteries():
+    """ Endpoint to get the batteries """
+
+    batteries = Battery.query.all()
+
+    battery_schema = BatterySchema(many=True)
+    response_data = {
+        'batteries': battery_schema.dump(batteries)
+    }
+    return Response.success(BATTERIES_FETCHED, response_data, 200)

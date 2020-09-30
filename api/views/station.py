@@ -7,7 +7,8 @@ from ..models.station import Station
 from ..schemas.station import StationSchema
 from ..utils.helpers.response import Response
 from ..utils.helpers.messages import (KEY_REQUIRED,
-                                      STATION_CREATED)
+                                      STATION_CREATED,
+                                      STATIONS_FETCHED)
 from ..utils.helpers import request_data_strip
 
 
@@ -29,3 +30,16 @@ def create_station():
         'station': station_schema.dump(new_station)
     }
     return Response.success(STATION_CREATED, response_data, 201)
+
+
+@application.route('/stations', methods=['GET'])
+def get_stations():
+    """ Endpoint to get the stations """
+
+    stations = Station.query.all()
+
+    station_schema = StationSchema(many=True)
+    response_data = {
+        'stations': station_schema.dump(stations)
+    }
+    return Response.success(STATIONS_FETCHED, response_data, 200)

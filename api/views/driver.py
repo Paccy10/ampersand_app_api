@@ -9,7 +9,8 @@ from ..schemas.driver import DriverSchema
 from ..utils.helpers.response import Response
 from ..utils.helpers.messages import (KEY_REQUIRED,
                                       MOTORCYCLE_NOT_EXIST,
-                                      DRIVER_CREATED)
+                                      DRIVER_CREATED,
+                                      DRIVERS_FETCHED)
 from ..utils.helpers import request_data_strip
 
 
@@ -40,3 +41,16 @@ def create_driver():
         'driver': driver_schema.dump(new_driver)
     }
     return Response.success(DRIVER_CREATED, response_data, 201)
+
+
+@application.route('/drivers', methods=['GET'])
+def get_drivers():
+    """ Endpoint to get the drivers """
+
+    drivers = Driver.query.all()
+
+    driver_schema = DriverSchema(many=True)
+    response_data = {
+        'drivers': driver_schema.dump(drivers)
+    }
+    return Response.success(DRIVERS_FETCHED, response_data, 200)

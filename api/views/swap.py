@@ -14,7 +14,8 @@ from ..utils.helpers.messages import (KEY_REQUIRED,
                                       STATION_NOT_FOUND,
                                       SWAP_CREATED,
                                       OLD_BATTERY_NOT_FOUND,
-                                      NEW_BATTERY_NOT_FOUND)
+                                      NEW_BATTERY_NOT_FOUND,
+                                      SWAPS_FETCHED)
 from ..utils.helpers import request_data_strip
 
 
@@ -94,3 +95,16 @@ def create_swap():
         'swap': swap_schema.dump(new_swap)
     }
     return Response.success(SWAP_CREATED, response_data, 201)
+
+
+@application.route('/swaps', methods=['GET'])
+def get_swaps():
+    """ Endpoint to get the swaps """
+
+    swaps = Swap.query.all()
+
+    swap_schema = SwapSchema(many=True)
+    response_data = {
+        'swaps': swap_schema.dump(swaps)
+    }
+    return Response.success(SWAPS_FETCHED, response_data, 200)

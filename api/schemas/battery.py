@@ -10,3 +10,4 @@ class BatterySchema(BaseSchema):
 
     serial_number = fields.String(required=True)
     capacity = fields.Float(required=True)
+    energy_level = fields.Float(required=True)

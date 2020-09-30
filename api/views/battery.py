@@ -24,6 +24,9 @@ def create_battery():
     if not request_data.get('capacity'):
         return Response.error(KEY_REQUIRED.format('capacity'), 400)
 
+    if not request_data.get('energy_level'):
+        return Response.error(KEY_REQUIRED.format('energy_level'), 400)
+
     battery = Battery.query.filter_by(
         serial_number=request_data.get('serial_number').strip()).first()
     if battery:

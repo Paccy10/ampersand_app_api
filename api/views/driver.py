@@ -5,12 +5,16 @@ from flask import request
 from config.server import application
 from ..models.motorcycle import Motorcycle
 from ..models.driver import Driver
+from ..models.swap import Swap
 from ..schemas.driver import DriverSchema
+from ..schemas.swap import SwapSchema
 from ..utils.helpers.response import Response
 from ..utils.helpers.messages import (KEY_REQUIRED,
                                       MOTORCYCLE_NOT_EXIST,
                                       DRIVER_CREATED,
-                                      DRIVERS_FETCHED)
+                                      DRIVERS_FETCHED,
+                                      DRIVER_NOT_FOUND,
+                                      SWAPS_FETCHED)
 from ..utils.helpers import request_data_strip
 
 
@@ -54,3 +58,20 @@ def get_drivers():
         'drivers': driver_schema.dump(drivers)
     }
     return Response.success(DRIVERS_FETCHED, response_data, 200)
+
+
+@application.route('/drivers/<driver_id>/swaps', methods=['GET'])
+def get_driver_swaps(driver_id):
+    """ Endpoint to get the driver swaps """
+
+    driver = Driver.query.filter_by(id=driver_id).first()
+    if not driver:
+        return Response.error(DRIVER_NOT_FOUND, 400)
+
+    swaps = Swap.query.filter_by(driver_id=driver_id).all()
+
+    swap_schema = SwapSchema(many=True)
+    response_data = {
+        'swaps': swap_schema.dump(swaps)
+    }
+    return Response.success(SWAPS_FETCHED, response_data, 200)

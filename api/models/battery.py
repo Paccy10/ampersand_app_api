@@ -11,3 +11,4 @@ class Battery(BaseModel):
 
     serial_number = db.Column(db.String(100), nullable=False, unique=True)
     capacity = db.Column(db.Float, nullable=False, default=0.00)
+    energy_level = db.Column(db.Float, nullable=False, default=0.00)

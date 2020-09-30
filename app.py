@@ -10,9 +10,11 @@ from api.utils.helpers.response import Response
 from api.models.motorcycle import Motorcycle
 from api.models.driver import Driver
 from api.models.battery import Battery
+from api.models.station import Station
 import api.views.motorcycle
 import api.views.driver
 import api.views.battery
+import api.views.station
 
 Migrate(application, db)
 

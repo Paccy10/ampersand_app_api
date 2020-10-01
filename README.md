@@ -76,3 +76,104 @@ flask db upgrade
 ```
 flask run
 ```
+
+## Endpoints
+
+- Create Motorcycle
+
+```
+request: POST /motorcycles
+
+body: {"serial_number": "motocycle1"}
+```
+
+- Get all Motorcycles
+
+```
+request: GET /motorcycles
+```
+
+- Create Driver
+
+```
+request: POST /drivers
+
+body: {
+  "name": "Pacifique Ndayisenga",
+  "license_number": "23343567789",
+  "motorcycle_id": 1
+}
+```
+
+- Get all Drivers
+
+```
+request: GET /drivers
+```
+
+- Create Battery
+
+```
+request: POST /batteries
+
+body: {
+  "serial_number": "battery1",
+  "capacity": 345.0,
+  "energy_level": 345.0
+}
+```
+
+- Get all Batteries
+
+```
+request: GET /batteries
+```
+
+- Create Station
+
+```
+request: POST /stations
+
+body: {
+  "location": "Kacyiru",
+  "number_of_batteries": 50,
+}
+```
+
+- Get all Stations
+
+```
+request: GET /stations
+```
+
+- Create Swap
+
+```
+request: POST /swaps
+
+body: {
+  "station_d": 1,
+  "driver_id": 1,
+  "odometer": 100,
+  "old_battery": {
+    "id": 1,
+    "energy_level": 10
+  },
+  "new_battery: {
+    "id": 2,
+    "energy_level": 345.0
+  }
+}
+```
+
+- Get all Swaps
+
+```
+request: GET /swaps
+```
+
+- Get driver's Swaps
+
+```
+request: GET /drivers/<driver_id>/swaps
+```
